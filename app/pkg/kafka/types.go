@@ -2,7 +2,7 @@ package kafka
 
 import "github.com/confluentinc/confluent-kafka-go/kafka"
 
-type jsonObj map[string]interface{}
+type jsonObj = map[string]interface{}
 
 type PartitionsResponse struct {
 	Topic      string    `json:"topic"`

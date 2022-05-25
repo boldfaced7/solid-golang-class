@@ -54,7 +54,7 @@ func NewKafkaConsumer(config jsonObj) *KafkaConsumer {
 	if !ok {
 		logger.Panicf("no topic provided")
 	}
-	pipeParams, ok := config["pipeParams"].(map[string]interface{})
+	pipeParams, ok := config["pipeParams"].(jsonObj)
 	if !ok {
 		logger.Panicf("no pipeParams provided")
 	}
