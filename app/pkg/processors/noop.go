@@ -25,3 +25,9 @@ func (n *NoopProcessor) Process(ctx context.Context, p payloads.Payload) (payloa
 	n.Validate(ctx, p)
 	return p, nil
 }
+
+func (n *NoopProcessor) Validate(ctx context.Context, p payloads.Payload) {
+	// 기본 Validator 사용
+	n.Validator.Validate(ctx, p)
+	// NoopProcessor 에서 관심있는 Validate 로직 구현.
+}
