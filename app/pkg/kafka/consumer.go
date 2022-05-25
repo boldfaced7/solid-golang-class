@@ -213,10 +213,8 @@ func (kc *KafkaConsumer) Poll(ctx context.Context) {
 				data, _ := json.MarshalIndent(record, "", " ")
 				logger.Debugf("%s", string(data))
 			case kafka.Error:
-				kc.errCh <- e
 				logger.Errorf("Error: %v: %v", e.Code(), e)
 			case kafka.PartitionEOF:
-				kc.errCh <- e.Error
 				logger.Debugf("[PartitionEOF][Consumer: %s][Topic: %v][Partition: %v][Offset: %d][Message: %v]", kc.kafkaConsumer.String(), *e.Topic, e.Partition, e.Offset, fmt.Sprintf("\"%s\"", e.Error.Error()))
 			}
 		}

@@ -12,7 +12,7 @@
                     "bootstrap.servers": "localhost:9092",
                     "group.id": "01",
                     "auto.offset.reset": "earliest",
-                    "enable.auto.commit": "false",
+                    "enable.auto.commit": "true",
                     "enable.partition.eof": "true",
                     "session.timeout.ms": "60000",
                     "heartbeat.interval.ms": "15000"
