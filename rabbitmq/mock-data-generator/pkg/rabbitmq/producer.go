@@ -45,6 +45,7 @@ func (r *RabbitMQProducer) Publish(file string) {
 		if err != nil {
 			fmt.Errorf(err.Error())
 		}
+		fmt.Printf("published data: %v \n", string(data))
 	}
 
 }
