@@ -4,7 +4,7 @@ https://docs.docker.com/desktop/mac/install/
 
 ### Kafka와 Kafka UI 설치
 ```
-$ docker compose -f kafka-ui.yaml up
+$ docker compose up -d
 ```
 
 ## 테스트를 위한 Mock 데이터 생성하기
