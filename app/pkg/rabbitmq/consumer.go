@@ -45,7 +45,7 @@ type RabbitMQConsumer struct {
 
 // Read implements Consumer
 func (*RabbitMQConsumer) Read(ctx context.Context) error {
-
+	// TODO: 1주차 과제 입니다.
 	return nil
 }
 
