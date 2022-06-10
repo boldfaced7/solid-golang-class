@@ -89,6 +89,7 @@ func (e *ElasticSearchClient) Drain(ctx context.Context, p payloads.Payload) err
 }
 
 func (e *ElasticSearchClient) Write(payload interface{}) (int, error) {
+	// TODO 3 주차 과제 입니다.
 	if payload == nil {
 		return 0, errors.New("payload is nil")
 	}
@@ -119,23 +120,20 @@ func (e *ElasticSearchClient) Write(payload interface{}) (int, error) {
 	// 데이터 정보 쓰기
 	e.buf.Write(data)
 
-	// 1000개 일때 벌크 쓰기
-	if e.count >= 1000 {
-		// 로컬 데이터 카피
-		buf := e.buf.Bytes()
-		// 벌크라이트
-		logger.Debugf("trigger bulk write : %d", e.count)
-		written, err := e.bulkWrite(index, buf)
-		if err != nil {
-			return 0, nil
-		}
-		// 버퍼 초기화
-		e.buf.Reset()
-		// 카운트 초기화
-		e.count = 0
-		return written, nil
+	// 로컬 데이터 카피
+	buf := e.buf.Bytes()
+
+	// 벌크라이트
+	logger.Debugf("trigger bulk write : %d", e.count)
+	written, err := e.bulkWrite(index, buf)
+	if err != nil {
+		return 0, nil
 	}
-	return 0, nil
+	// 버퍼 초기화
+	e.buf.Reset()
+	// 카운트 초기화
+	e.count = 0
+	return written, nil
 }
 
 func (e *ElasticSearchClient) bulkWrite(index string, data []byte) (int, error) {
@@ -203,7 +201,7 @@ func (e *ElasticSearchClient) bulkWrite(index string, data []byte) (int, error) 
 					numIndexed++
 				}
 			}
-			logger.Infof("returning..")
+			logger.Debugw("returning..")
 			return numIndexed, nil
 			// 응답에 에러가 없는 경우
 		} else {
@@ -211,7 +209,7 @@ func (e *ElasticSearchClient) bulkWrite(index string, data []byte) (int, error) 
 			if err := json.NewDecoder(res.Body).Decode(&bodyObj); err != nil {
 				logger.Errorf("Failure to to parse response body: %s", err)
 			} else {
-				logger.Printf("Error: [%d] %s: %s",
+				logger.Errorf("Error: [%d] %s: %s",
 					res.StatusCode,
 					bodyObj["error"].(jsonObj)["type"],
 					bodyObj["error"].(jsonObj)["reason"],

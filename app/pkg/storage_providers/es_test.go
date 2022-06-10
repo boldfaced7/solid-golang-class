@@ -2,11 +2,9 @@ package storage_providers_test
 
 import (
 	"encoding/json"
-	"event-data-pipeline/pkg/logger"
 	"event-data-pipeline/pkg/payloads"
 	"event-data-pipeline/pkg/storage_providers"
 	"fmt"
-	"os"
 	"sync"
 
 	gc "gopkg.in/check.v1"
@@ -18,36 +16,24 @@ type ESSuite struct{}
 var _ = gc.Suite(&ESSuite{})
 
 func (e *ESSuite) SetUpSuite(c *gc.C) {
-	os.Args = nil
-	os.Setenv("EDP_ENABLE_DEBUG_LOGGING", "true")
-	logger.Setup()
-
-}
-func (e *ESSuite) TearDownSuite(c *gc.C) {
-
+	// TODO 3주차 과제 입니다.
 }
 
 func (f *ESSuite) TestWrite(c *gc.C) {
 
-	cfgObj := make(jsonObj)
-	addresses := &[]interface{}{"http://localhost:9200"}
-	cfgObj["addresses"] = addresses
+	// TODO 3주차 과제 입니다.
 
-	// ES storage provider 인스턴스 생성
-	es, err := storage_providers.CreateStorageProvider("elasticsearch", cfgObj)
+	// TODO 설정 오브젝트 생성
 
-	// 에러 체크
-	c.Assert(err, gc.IsNil)
+	// TODO 스토리지 프로바이더 생성
 
-	data := make(map[string]interface{})
-	data["id"] = 0
-	json, _ := json.Marshal(data)
-	// 페이로드 stub 생성
-	payload := &esPayloadStub{"event-data-test", fmt.Sprintf("es.write.test.%d", 0), json}
+	// TODO 에러 체크
 
-	written, err := es.Write(payload)
-	c.Assert(written, gc.NotNil)
-	c.Assert(err, gc.IsNil)
+	// TODO 임의 데이터 생성
+
+	// TODO esPayloadStub 생성
+
+	// TODO Write 실행
 
 }
 
